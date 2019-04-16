@@ -6,7 +6,7 @@
     "email": "lexich121@gmail.com",
     "url": "https://github.com/lexich"
   },
-  "main": "src/index.js",
+  "main": "dist/redux-api.js",
   "license": "MIT",
   "description": "Flux REST API for redux infrastructure",
   "repository": "http://github.com/lexich/redux-api",
