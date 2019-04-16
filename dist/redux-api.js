@@ -3464,7 +3464,17 @@ function reduxApi(config, baseConfig) {
       var sync = false;
       var syncing = false;
       var loading = false;
-      var initialState = opts.cache ? _extends({}, data, { api: _extends({}, data.api, { sync: sync, syncing: syncing, loading: loading, cache: {}, request: null }) }) : _extends({}, data, { api: _extends({}, data.api, { sync: sync, syncing: syncing, loading: loading, request: null }) });
+      var initialState = opts.cache ? _extends({}, data, {
+        api: _extends({}, data.api, {
+          sync: sync,
+          syncing: syncing,
+          loading: loading,
+          cache: {},
+          request: null
+        })
+      }) : _extends({}, data, {
+        api: _extends({}, data.api, { sync: sync, syncing: syncing, loading: loading, request: null })
+      });
 
       var reducer = opts.reducer ? opts.reducer.bind(memo) : null;
       memo.reducers[reducerName] = (0, _reducerFn2.default)((0, _transformers.responseTransform)(initialState), ACTIONS, reducer);
