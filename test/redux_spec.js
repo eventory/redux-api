@@ -353,7 +353,7 @@ describe("redux", () => {
       ],
       [
         { body: "/api/test2" },
-        { 
+        {
           body: "/api/test1",
           api: {
             sync: true,
@@ -375,15 +375,17 @@ describe("redux", () => {
       test1: {
         url: "/api/test1",
         transformer(data, prevData, opts) {
-          expect([data && { body: data }, prevData, opts]).to.eql(expectedArgs.shift());
+          expect([data && { body: data }, prevData, opts]).to.eql(
+            expectedArgs.shift()
+          );
           return data && { body: data };
         }
       },
       test2: {
         url: "/api/test2",
-        reducerName: "test1",        
+        reducerName: "test1",
         transformer(data, prevData, opts) {
-          const x = expectedArgs.shift()
+          const x = expectedArgs.shift();
           expect([data && { body: data }, prevData, opts]).to.eql(x);
           return data;
         }

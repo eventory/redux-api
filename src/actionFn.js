@@ -266,7 +266,7 @@ export default function actionFn(url, name, options, ACTIONS = {}, meta = {}) {
               pubsub.reject(error);
               fail(error);
             }
-          )
+          );
         });
       });
       result.catch(none);
