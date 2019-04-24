@@ -1376,12 +1376,12 @@ function actionFn(url, name, options) {
           getState = _middlewareParser.getState;
 
       var state = getState();
-      var isLoading = (0, _get2.default)(state, meta.prefix, meta.reducerName, "loading");
+      var isLoading = (0, _get2.default)(state, meta.prefix, meta.reducerName, "api.loading");
       if (isLoading) {
         return Promise.reject("isLoading");
       }
       var requestOptions = { pathvars: pathvars, params: params };
-      var prevData = (0, _get2.default)(state, meta.prefix, meta.reducerName, "data");
+      var prevData = (0, _get2.default)(state, meta.prefix, meta.reducerName);
       dispatch({ type: actionFetch, syncing: syncing, request: requestOptions });
       var fetchResolverOpts = {
         dispatch: dispatch,
@@ -1498,7 +1498,7 @@ function actionFn(url, name, options) {
 
     return function (dispatch, getState) {
       var state = getState();
-      var isLoading = (0, _get2.default)(state, meta.prefix, meta.reducerName, "loading");
+      var isLoading = (0, _get2.default)(state, meta.prefix, meta.reducerName, "api.loading");
       if (isLoading) {
         dispatch(fn.abort());
       }
