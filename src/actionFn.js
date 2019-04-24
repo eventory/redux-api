@@ -41,8 +41,8 @@ export default function actionFn(url, name, options, ACTIONS = {}, meta = {}) {
     const globalOptions = !meta.holder
       ? {}
       : meta.holder.options instanceof Function
-        ? meta.holder.options(urlT, params, getState)
-        : meta.holder.options;
+      ? meta.holder.options(urlT, params, getState)
+      : meta.holder.options;
     const baseOptions = !(options instanceof Function)
       ? options
       : options(urlT, params, getState);
@@ -170,12 +170,17 @@ export default function actionFn(url, name, options, ACTIONS = {}, meta = {}) {
         get(meta, "holder", "middlewareParser") || defaultMiddlewareArgsParser;
       const { dispatch, getState } = middlewareParser(...middlewareArgs);
       const state = getState();
-      const isLoading = get(state, meta.prefix, meta.reducerName, "loading");
+      const isLoading = get(
+        state,
+        meta.prefix,
+        meta.reducerName,
+        "api.loading"
+      );
       if (isLoading) {
         return Promise.reject("isLoading");
       }
       const requestOptions = { pathvars, params };
-      const prevData = get(state, meta.prefix, meta.reducerName, "data");
+      const prevData = get(state, meta.prefix, meta.reducerName);
       dispatch({ type: actionFetch, syncing, request: requestOptions });
       const fetchResolverOpts = {
         dispatch,
@@ -261,7 +266,7 @@ export default function actionFn(url, name, options, ACTIONS = {}, meta = {}) {
               pubsub.reject(error);
               fail(error);
             }
-          );
+          )
         });
       });
       result.catch(none);
@@ -297,7 +302,12 @@ export default function actionFn(url, name, options, ACTIONS = {}, meta = {}) {
   fn.force = function(...args) {
     return (dispatch, getState) => {
       const state = getState();
-      const isLoading = get(state, meta.prefix, meta.reducerName, "loading");
+      const isLoading = get(
+        state,
+        meta.prefix,
+        meta.reducerName,
+        "api.loading"
+      );
       if (isLoading) {
         dispatch(fn.abort());
       }
