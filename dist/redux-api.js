@@ -189,10 +189,20 @@ Object.defineProperty(exports, "__esModule", {
 var toString = Object.prototype.toString;
 var OBJECT = "[object Object]";
 
+var transformEmpty = function transformEmpty(response) {
+  var keys = Object.keys(response);
+  return keys.length < 2 || !!(response.items && response.items.length === 0);
+};
+
+var transformPerforming = function transformPerforming(response) {
+  if (response.api.error) return false;
+  return response.api.loading || response.api.syncing || !response.api.sync;
+};
+
 var responseTransform = exports.responseTransform = function responseTransform(response) {
   if (response.api) {
-    var keys = Object.keys(response);
-    response.api.empty = keys.length < 2 || !!(response.items && response.items.length === 0);
+    response.api.empty = transformEmpty(response);
+    response.api.performing = transformPerforming(response);
   }
   return response;
 };

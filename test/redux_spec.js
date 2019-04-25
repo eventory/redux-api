@@ -192,7 +192,8 @@ describe("redux", () => {
         sync: false,
         syncing: false,
         loading: false,
-        request: null
+        request: null,
+        performing: true
       }
     }).to.eql(store.getState().test, "Initial state");
     const retAborting = store.dispatch(rest.actions.test()).then(
@@ -209,6 +210,7 @@ describe("redux", () => {
         syncing: false,
         loading: true,
         error: null,
+        performing: true,
         request: {
           params: undefined,
           pathvars: undefined
@@ -225,7 +227,8 @@ describe("redux", () => {
         sync: false,
         syncing: false,
         loading: false,
-        request: null
+        request: null,
+        performing: true
       }
     }).to.eql(store.getState().test, "State after reset");
     return retAborting;
@@ -260,7 +263,8 @@ describe("redux", () => {
           sync: false,
           syncing: false,
           loading: false,
-          request: null
+          request: null,
+          performing: true
         }
       },
       test: {
@@ -269,7 +273,8 @@ describe("redux", () => {
           sync: false,
           syncing: false,
           loading: false,
-          request: null
+          request: null,
+          performing: true
         }
       }
     });
@@ -297,6 +302,7 @@ describe("redux", () => {
           sync: true,
           syncing: false,
           loading: false,
+          performing: false,
           request: {
             params: {},
             pathvars: undefined
@@ -313,6 +319,7 @@ describe("redux", () => {
           sync: false,
           syncing: false,
           loading: false,
+          performing: true,
           error: null
         },
         data: "/api/url"
@@ -343,7 +350,8 @@ describe("redux", () => {
             syncing: false,
             loading: false,
             request: null,
-            empty: true
+            empty: true,
+            performing: true
           }
         },
         {
@@ -361,7 +369,8 @@ describe("redux", () => {
             loading: false,
             request: { pathvars: undefined, params: undefined },
             empty: false,
-            error: null
+            error: null,
+            performing: false
           }
         },
         {
@@ -649,6 +658,7 @@ describe("redux", () => {
                 sync: false,
                 syncing: false,
                 loading: false,
+                performing: false,
                 request: {
                   params: undefined,
                   pathvars: undefined
@@ -725,7 +735,8 @@ describe("redux", () => {
           request: null,
           sync: false,
           syncing: false,
-          loading: false
+          loading: false,
+          performing: true
         }
       }
     };
@@ -738,6 +749,7 @@ describe("redux", () => {
           sync: true,
           syncing: false,
           loading: false,
+          performing: false,          
           request: {
             pathvars: { id: 1 },
             params: { body: "Test", headers: ["JSON"] }
@@ -754,6 +766,7 @@ describe("redux", () => {
           sync: true,
           syncing: false,
           loading: false,
+          performing: false,
           request: {
             pathvars: { id: 2 },
             params: { body: "Test2", headers: ["XML"] }

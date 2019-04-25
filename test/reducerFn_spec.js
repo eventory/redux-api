@@ -28,6 +28,7 @@ describe("reducerFn", function() {
         loading: true,
         error: null,
         syncing: false,
+        performing: true,
         request: {}
       },
       msg: "Hello"
@@ -43,7 +44,8 @@ describe("reducerFn", function() {
         loading: false,
         error: null,
         sync: true,
-        syncing: false
+        syncing: false,
+        performing: false
       },
       items: []
     }).to.eql(res2);
@@ -54,7 +56,8 @@ describe("reducerFn", function() {
         empty: false,
         loading: false,
         error: "Error",
-        syncing: false
+        syncing: false,
+        performing: false
       },
       msg: "Hello"
     }).to.eql(res3);
@@ -86,6 +89,7 @@ describe("reducerFn", function() {
         loading: true,
         error: null,
         syncing: false,
+        performing: true,
         request: {
           pathvars: { id: 42 }
         }
@@ -104,6 +108,7 @@ describe("reducerFn", function() {
         error: null,
         sync: true,
         syncing: false,
+        performing: false,
         request: {
           pathvars: { id: 42 }
         }
@@ -118,6 +123,7 @@ describe("reducerFn", function() {
         loading: false,
         error: "Error",
         syncing: false,
+        performing: false,
         request: {
           pathvars: { id: 42 }
         }
@@ -164,6 +170,7 @@ describe("reducerFn", function() {
         loading: true,
         error: null,
         syncing: false,
+        performing: true,
         request: {
           pathvars: { other: "var" },
           params: {
@@ -183,6 +190,7 @@ describe("reducerFn", function() {
         error: null,
         sync: true,
         syncing: false,
+        performing: false,
         request: {
           pathvars: { other: "var" },
           params: {
@@ -201,6 +209,7 @@ describe("reducerFn", function() {
         loading: false,
         error: "Error",
         syncing: false,
+        performing: false,
         request: {
           pathvars: { other: "var" },
           params: {
