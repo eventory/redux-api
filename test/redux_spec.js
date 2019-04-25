@@ -749,7 +749,7 @@ describe("redux", () => {
           sync: true,
           syncing: false,
           loading: false,
-          performing: false,          
+          performing: false,
           request: {
             pathvars: { id: 1 },
             params: { body: "Test", headers: ["JSON"] }

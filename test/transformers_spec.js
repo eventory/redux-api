@@ -3,7 +3,7 @@
 /* global describe, it */
 /* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
 import { expect } from "chai";
-import { responseTransform } from "../src/transformers"
+import { responseTransform } from "../src/transformers";
 
 describe("transformers", () => {
   it("check performing", () => {
@@ -24,7 +24,7 @@ describe("transformers", () => {
           empty: true
         }
       }
-    ]
+    ];
 
     expect(responseTransform(data[0])).to.eql(data[1]);
 
@@ -45,7 +45,7 @@ describe("transformers", () => {
           empty: true
         }
       }
-    ]
+    ];
 
     expect(responseTransform(data[0])).to.eql(data[1]);
 
@@ -66,7 +66,7 @@ describe("transformers", () => {
           empty: true
         }
       }
-    ]
+    ];
 
     expect(responseTransform(data[0])).to.eql(data[1]);
 
@@ -87,10 +87,10 @@ describe("transformers", () => {
           empty: true
         }
       }
-    ]
+    ];
 
     expect(responseTransform(data[0])).to.eql(data[1]);
-  })
+  });
 
   it("check performing with errors", () => {
     let data = [
@@ -112,7 +112,7 @@ describe("transformers", () => {
           error: "?"
         }
       }
-    ]
+    ];
 
     expect(responseTransform(data[0])).to.eql(data[1]);
 
@@ -135,10 +135,10 @@ describe("transformers", () => {
           error: null
         }
       }
-    ]
+    ];
 
     expect(responseTransform(data[0])).to.eql(data[1]);
-  })
+  });
 
   it("check empty", () => {
     let data = [
@@ -146,7 +146,7 @@ describe("transformers", () => {
         api: {
           sync: false,
           syncing: true,
-          loading: false,          
+          loading: false
         },
         xyz: 5
       },
@@ -156,11 +156,11 @@ describe("transformers", () => {
           syncing: true,
           loading: false,
           performing: true,
-          empty: false,
+          empty: false
         },
         xyz: 5
       }
-    ]
+    ];
 
     expect(responseTransform(data[0])).to.eql(data[1]);
 
@@ -185,7 +185,7 @@ describe("transformers", () => {
         },
         items: []
       }
-    ]
+    ];
 
     expect(responseTransform(data[0])).to.eql(data[1]);
 
@@ -197,7 +197,7 @@ describe("transformers", () => {
           loading: false,
           error: null
         },
-        items: [{a: 5}]
+        items: [{ a: 5 }]
       },
       {
         api: {
@@ -208,9 +208,9 @@ describe("transformers", () => {
           empty: false,
           error: null
         },
-        items: [{a: 5}]
+        items: [{ a: 5 }]
       }
-    ]
+    ];
 
     expect(responseTransform(data[0])).to.eql(data[1]);
 
@@ -223,7 +223,7 @@ describe("transformers", () => {
           error: null
         },
         items: [],
-        meta: {total: 0}
+        meta: { total: 0 }
       },
       {
         api: {
@@ -235,10 +235,10 @@ describe("transformers", () => {
           error: null
         },
         items: [],
-        meta: {total: 0}
+        meta: { total: 0 }
       }
-    ]
+    ];
 
     expect(responseTransform(data[0])).to.eql(data[1]);
-  })
-})
+  });
+});
