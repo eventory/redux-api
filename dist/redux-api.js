@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 27);
+/******/ 	return __webpack_require__(__webpack_require__.s = 28);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -440,8 +440,8 @@ exports.isBuffer = function (obj) {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var punycode = __webpack_require__(10);
-var util = __webpack_require__(17);
+var punycode = __webpack_require__(11);
+var util = __webpack_require__(18);
 
 exports.parse = urlParse;
 exports.resolve = urlResolve;
@@ -524,7 +524,7 @@ slashedProtocol = {
   'gopher:': true,
   'file:': true
 },
-    querystring = __webpack_require__(16);
+    querystring = __webpack_require__(17);
 
 function urlParse(url, parseQueryString, slashesDenoteHost) {
   if (url && util.isObject(url) && url instanceof Url) return url;
@@ -1201,7 +1201,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 exports.default = actionFn;
 
-var _fastApply = __webpack_require__(9);
+var _fastApply = __webpack_require__(10);
 
 var _fastApply2 = _interopRequireDefault(_fastApply);
 
@@ -1209,7 +1209,7 @@ var _url = __webpack_require__(3);
 
 var _url2 = _interopRequireDefault(_url);
 
-var _urlTransform = __webpack_require__(24);
+var _urlTransform = __webpack_require__(25);
 
 var _urlTransform2 = _interopRequireDefault(_urlTransform);
 
@@ -1217,23 +1217,23 @@ var _merge = __webpack_require__(4);
 
 var _merge2 = _interopRequireDefault(_merge);
 
-var _get = __webpack_require__(25);
+var _get = __webpack_require__(26);
 
 var _get2 = _interopRequireDefault(_get);
 
-var _fetchResolver = __webpack_require__(22);
+var _fetchResolver = __webpack_require__(23);
 
 var _fetchResolver2 = _interopRequireDefault(_fetchResolver);
 
-var _PubSub = __webpack_require__(20);
+var _PubSub = __webpack_require__(21);
 
 var _PubSub2 = _interopRequireDefault(_PubSub);
 
-var _createHolder = __webpack_require__(21);
+var _createHolder = __webpack_require__(22);
 
 var _createHolder2 = _interopRequireDefault(_createHolder);
 
-var _helpers = __webpack_require__(23);
+var _helpers = __webpack_require__(24);
 
 var _cache = __webpack_require__(0);
 
@@ -1767,6 +1767,27 @@ module.exports = exports["default"];
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+exports.default = function (response) {
+  var pure = _extends({}, response);
+  delete pure.api;
+  return pure;
+};
+
+module.exports = exports["default"];
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 module.exports = fastApply;
 
 function fastApply(fn, context, args) {
@@ -1790,7 +1811,7 @@ function fastApply(fn, context, args) {
 }
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2324,10 +2345,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		root.punycode = punycode;
 	}
 })(undefined);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19)(module), __webpack_require__(18)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(20)(module), __webpack_require__(19)))
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2335,8 +2356,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 // Load modules
 
-var Stringify = __webpack_require__(13);
-var Parse = __webpack_require__(12);
+var Stringify = __webpack_require__(14);
+var Parse = __webpack_require__(13);
 
 // Declare internals
 
@@ -2348,7 +2369,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2525,7 +2546,7 @@ module.exports = function (str, options) {
 };
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2674,7 +2695,7 @@ module.exports = function (obj, options) {
 };
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2768,7 +2789,7 @@ var isArray = Array.isArray || function (xs) {
 };
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2859,17 +2880,17 @@ var objectKeys = Object.keys || function (obj) {
 };
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-exports.decode = exports.parse = __webpack_require__(14);
-exports.encode = exports.stringify = __webpack_require__(15);
+exports.decode = exports.parse = __webpack_require__(15);
+exports.encode = exports.stringify = __webpack_require__(16);
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2893,7 +2914,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2923,7 +2944,7 @@ try {
 module.exports = g;
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2953,7 +2974,7 @@ module.exports = function (module) {
 };
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3006,7 +3027,7 @@ exports.default = PubSub;
 module.exports = exports["default"];
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3045,7 +3066,7 @@ exports.default = function () {
 module.exports = exports["default"];
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3073,7 +3094,7 @@ function fetchResolver() {
 module.exports = exports["default"];
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3136,7 +3157,7 @@ var CRUD = exports.CRUD = ["get", "post", "put", "delete", "patch"].reduce(funct
 }, {});
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3150,13 +3171,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 exports.default = urlTransform;
 
-var _qs = __webpack_require__(11);
+var _qs = __webpack_require__(12);
 
 var _qs2 = _interopRequireDefault(_qs);
 
 var _url = __webpack_require__(3);
 
-var _omit = __webpack_require__(26);
+var _omit = __webpack_require__(27);
 
 var _omit2 = _interopRequireDefault(_omit);
 
@@ -3227,7 +3248,7 @@ function urlTransform(url, params, options) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3259,7 +3280,7 @@ exports.default = get;
 module.exports = exports["default"];
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3287,7 +3308,7 @@ exports.default = function (object, props) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3324,6 +3345,10 @@ var _async2 = _interopRequireDefault(_async);
 var _cache = __webpack_require__(0);
 
 var _cache2 = _interopRequireDefault(_cache);
+
+var _getPureResponse = __webpack_require__(9);
+
+var _getPureResponse2 = _interopRequireDefault(_getPureResponse);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3500,6 +3525,7 @@ function reduxApi(config, baseConfig) {
 
 reduxApi.transformers = _transformers2.default;
 reduxApi.async = _async2.default;
+reduxApi.getPureResponse = _getPureResponse2.default;
 module.exports = exports["default"];
 
 /***/ })
