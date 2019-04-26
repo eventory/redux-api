@@ -174,7 +174,8 @@ export default function actionFn(url, name, options, ACTIONS = {}, meta = {}) {
         state,
         meta.prefix,
         meta.reducerName,
-        "api.loading"
+        "api",
+        "loading"
       );
       if (isLoading) {
         return Promise.reject("isLoading");
@@ -306,7 +307,8 @@ export default function actionFn(url, name, options, ACTIONS = {}, meta = {}) {
         state,
         meta.prefix,
         meta.reducerName,
-        "api.loading"
+        "api",
+        "loading"
       );
       if (isLoading) {
         dispatch(fn.abort());

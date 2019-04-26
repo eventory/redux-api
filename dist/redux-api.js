@@ -1386,7 +1386,7 @@ function actionFn(url, name, options) {
           getState = _middlewareParser.getState;
 
       var state = getState();
-      var isLoading = (0, _get2.default)(state, meta.prefix, meta.reducerName, "api.loading");
+      var isLoading = (0, _get2.default)(state, meta.prefix, meta.reducerName, "api", "loading");
       if (isLoading) {
         return Promise.reject("isLoading");
       }
@@ -1508,7 +1508,7 @@ function actionFn(url, name, options) {
 
     return function (dispatch, getState) {
       var state = getState();
-      var isLoading = (0, _get2.default)(state, meta.prefix, meta.reducerName, "api.loading");
+      var isLoading = (0, _get2.default)(state, meta.prefix, meta.reducerName, "api", "loading");
       if (isLoading) {
         dispatch(fn.abort());
       }
