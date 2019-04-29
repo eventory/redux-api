@@ -1,8 +1,5 @@
 "use strict";
 
-const toString = Object.prototype.toString;
-const OBJECT = "[object Object]";
-
 const transformEmpty = response => {
   const keys = Object.keys(response);
   return keys.length < 2 || !!(response.items && response.items.length === 0);
@@ -28,10 +25,22 @@ export default {
   array(data) {
     return !data ? [] : Array.isArray(data) ? data : [data];
   },
+  collection(data) {
+    if (!data)
+      return {
+        items: [],
+        meta: {
+          next: null,
+          page: 1,
+          pages: 0,
+          per_page: 25,
+          previous: null,
+          total: 0
+        }
+      };
+    return data;
+  },
   object(data) {
-    if (!data) {
-      return {};
-    }
-    return toString.call(data) === OBJECT ? data : { data };
+    return data || {};
   }
 };

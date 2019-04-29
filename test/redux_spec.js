@@ -21,13 +21,13 @@ describe("redux", () => {
     const rest = reduxApi({
       test: "/api/url"
     }).use("fetch", url => {
-      return new Promise(resolve => resolve(url));
+      return new Promise(resolve => resolve({ url }));
     });
     const store = storeHelper(rest);
     return new Promise(resolve => {
       store.dispatch(rest.actions.test(resolve));
     }).then(() => {
-      expect(store.getState().test.data).to.eql("/api/url");
+      expect(store.getState().test.url).to.eql("/api/url");
     });
   });
   it("check async function with redux", () => {
@@ -35,7 +35,7 @@ describe("redux", () => {
       test: "/api/url",
       test2: "/api/url2"
     }).use("fetch", url => {
-      return new Promise(resolve => resolve(url));
+      return new Promise(resolve => resolve({ url }));
     });
     const store = storeHelper(rest);
     return async(
@@ -43,9 +43,9 @@ describe("redux", () => {
       cb => rest.actions.test(cb),
       rest.actions.test2
     ).then(d => {
-      expect(d.data).to.eql("/api/url2");
-      expect(store.getState().test.data).to.eql("/api/url");
-      expect(store.getState().test2.data).to.eql("/api/url2");
+      expect(d.url).to.eql("/api/url2");
+      expect(store.getState().test.url).to.eql("/api/url");
+      expect(store.getState().test2.url).to.eql("/api/url2");
     });
   });
   it("check async 2", done => {
@@ -70,7 +70,7 @@ describe("redux", () => {
     const rest = reduxApi({
       test: "/api/url"
     })
-      .use("fetch", url => new Promise(resolve => resolve(url)))
+      .use("fetch", url => new Promise(resolve => resolve({ url })))
       .use("middlewareParser", ({ getState, dispatch }) => ({
         getState,
         dispatch
@@ -94,7 +94,7 @@ describe("redux", () => {
       store.dispatch(rest.actions.test(resolve));
     }).then(
       () => {
-        expect(store.getState().test.data).to.eql("/api/url");
+        expect(store.getState().test.url).to.eql("/api/url");
       },
       err => expect(null).to.eql(err)
     );
@@ -290,7 +290,7 @@ describe("redux", () => {
     const rest = reduxApi({
       test: "/api/url"
     }).use("fetch", url => {
-      return new Promise(resolve => resolve(url));
+      return new Promise(resolve => resolve({ url }));
     });
     const store = storeHelper(rest);
     return new Promise(resolve => {
@@ -309,7 +309,7 @@ describe("redux", () => {
           },
           error: null
         },
-        data: "/api/url"
+        url: "/api/url"
       });
       store.dispatch(rest.actions.test.reset("sync"));
       expect(store.getState().test).to.eql({
@@ -322,7 +322,7 @@ describe("redux", () => {
           performing: true,
           error: null
         },
-        data: "/api/url"
+        url: "/api/url"
       });
     });
   });
@@ -330,13 +330,13 @@ describe("redux", () => {
     const rest = reduxApi({
       test: "/api/url"
     }).use("fetch", url => {
-      return new Promise(resolve => resolve(url));
+      return new Promise(resolve => resolve({ url }));
     });
     const store = storeHelper(rest);
     const result = store.dispatch(rest.actions.test());
     expect(result instanceof Promise).to.be.true;
-    return result.then(({ data }) => {
-      expect(data).to.eql("/api/url");
+    return result.then(({ url }) => {
+      expect(url).to.eql("/api/url");
     });
   });
   it("check all arguments for transformer", function() {
@@ -408,12 +408,27 @@ describe("redux", () => {
       .then(() => expect(expectedArgs).to.eql(["none"]));
   });
 
-  /*
-    TODO: multiple endpoints
   it("multiple endpoints", function() {
-    const fetch = url => Promise.resolve(url);
+    const fetch = url => Promise.resolve({ url });
 
-    const expectedData = [[void 0, void 0], ["/test1", {}]];
+    const expectedData = [
+      [void 0, void 0],
+      [
+        {
+          url: "/test1"
+        },
+        {
+          api: {
+            empty: true,
+            loading: false,
+            performing: true,
+            request: null,
+            sync: false,
+            syncing: false
+          }
+        }
+      ]
+    ];
     const actualData = [];
 
     const rest1 = reduxApi(
@@ -452,6 +467,7 @@ describe("redux", () => {
                 sync: false,
                 syncing: false,
                 loading: true,
+                performing: true,
                 error: null,
                 request: {
                   params: undefined,
@@ -467,6 +483,7 @@ describe("redux", () => {
                 sync: false,
                 syncing: false,
                 loading: false,
+                performing: true,
                 request: null
               }
             }
@@ -482,14 +499,15 @@ describe("redux", () => {
                 empty: false,
                 sync: true,
                 syncing: false,
-                loading: false,                
+                loading: false,
+                performing: false,
                 error: null,
                 request: {
                   params: undefined,
                   pathvars: undefined
                 }
               },
-              data: "/test1"
+              url: "/test1"
             }
           },
           r2: {
@@ -497,9 +515,10 @@ describe("redux", () => {
               api: {
                 empty: true,
                 sync: false,
+                performing: true,
                 syncing: false,
                 loading: false,
-                request: null,                
+                request: null
               }
             }
           }
@@ -514,13 +533,15 @@ describe("redux", () => {
                 empty: false,
                 sync: true,
                 syncing: false,
-                loading: false,                
+                loading: false,
+                performing: false,
                 error: null,
                 request: {
                   params: undefined,
                   pathvars: undefined
                 }
-              }
+              },
+              url: "/test1"
             }
           },
           r2: {
@@ -529,7 +550,8 @@ describe("redux", () => {
                 empty: true,
                 sync: false,
                 syncing: false,
-                loading: true,                
+                loading: true,
+                performing: true,
                 error: null,
                 request: {
                   params: undefined,
@@ -549,14 +571,15 @@ describe("redux", () => {
                 empty: false,
                 sync: true,
                 syncing: false,
-                loading: false,                
+                loading: false,
+                performing: false,
                 error: null,
                 request: {
                   params: undefined,
                   pathvars: undefined
                 }
               },
-              data: "/test1"
+              url: "/test1"
             }
           },
           r2: {
@@ -565,14 +588,15 @@ describe("redux", () => {
                 empty: false,
                 sync: true,
                 syncing: false,
-                loading: false,               
+                loading: false,
+                performing: false,
                 error: null,
                 request: {
                   params: undefined,
                   pathvars: undefined
                 }
               },
-              data: "/test2"
+              url: "/test2"
             }
           }
         }
@@ -608,8 +632,7 @@ describe("redux", () => {
         expect(actualData[0]).to.eql(expectedData[0]);
         expect(actualData[1]).to.eql(expectedData[1]);
       });
-  });  
-  */
+  });
 
   it("check double call crud alias", function() {
     let fetchCounter = 0;
@@ -642,7 +665,7 @@ describe("redux", () => {
     const rest = reduxApi({
       test: "/api/url"
     }).use("fetch", url => {
-      return new Promise(resolve => setTimeout(() => resolve(url), 10));
+      return new Promise(resolve => setTimeout(() => resolve({ url }), 10));
     });
     const store = storeHelper(rest);
 
@@ -678,17 +701,15 @@ describe("redux", () => {
     const ret2 = store.dispatch(rest.actions.test());
 
     return Promise.all([ret1, ret2]).then(() => {
-      expect(store.getState().test.data).to.eql("/api/url");
+      expect(store.getState().test.url).to.eql("/api/url");
     });
   });
 
-  /*
-    TODO: check force
   it("check force", () => {
     const rest = reduxApi({
       test: "/api/url"
     }).use("fetch", url => {
-      return new Promise(resolve => setTimeout(() => resolve(url), 10));
+      return new Promise(resolve => setTimeout(() => resolve({ url }), 10));
     });
     const store = storeHelper(rest);
     const ret1 = store.dispatch(rest.actions.test()).then(
@@ -701,7 +722,8 @@ describe("redux", () => {
               empty: true,
               sync: false,
               syncing: false,
-              loading: false,              
+              loading: false,
+              performing: false,
               request: {
                 params: undefined,
                 pathvars: undefined
@@ -716,16 +738,15 @@ describe("redux", () => {
     );
     const ret2 = store.dispatch(rest.actions.test.force());
     return Promise.all([ret1, ret2]).then(() => {
-      expect(store.getState().test.data).to.eql("/api/url");
+      expect(store.getState().test.url).to.eql("/api/url");
     });
   });
-  */
 
   it("check pathvars", () => {
     const rest = reduxApi({
       test: "/api/url/:id"
     }).use("fetch", url => {
-      return new Promise(resolve => resolve(url));
+      return new Promise(resolve => resolve({ url }));
     });
     const store = storeHelper(rest);
     const INIT_STATE = {
@@ -756,7 +777,7 @@ describe("redux", () => {
           },
           error: null
         },
-        data: "/api/url/1"
+        url: "/api/url/1"
       }
     };
     const STATE_2 = {
@@ -773,7 +794,7 @@ describe("redux", () => {
           },
           error: null
         },
-        data: "/api/url/2"
+        url: "/api/url/2"
       }
     };
 

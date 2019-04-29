@@ -186,9 +186,6 @@ function getCacheManager(expire, cache) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var toString = Object.prototype.toString;
-var OBJECT = "[object Object]";
-
 var transformEmpty = function transformEmpty(response) {
   var keys = Object.keys(response);
   return keys.length < 2 || !!(response.items && response.items.length === 0);
@@ -214,11 +211,22 @@ exports.default = {
   array: function array(data) {
     return !data ? [] : Array.isArray(data) ? data : [data];
   },
+  collection: function collection(data) {
+    if (!data) return {
+      items: [],
+      meta: {
+        next: null,
+        page: 1,
+        pages: 0,
+        per_page: 25,
+        previous: null,
+        total: 0
+      }
+    };
+    return data;
+  },
   object: function object(data) {
-    if (!data) {
-      return {};
-    }
-    return toString.call(data) === OBJECT ? data : { data: data };
+    return data || {};
   }
 };
 
