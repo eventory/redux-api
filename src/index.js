@@ -8,6 +8,8 @@ import transformers, { responseTransform } from "./transformers";
 import async from "./async";
 import cacheManager from "./utils/cache";
 import getPureResponse from "./utils/getPureResponse";
+import { ARRAY_DEFAULT as HASH_ARRAY_DEFAULT } from "./utils/composeHashFrom";
+
 // export { transformers, async };
 
 /**
@@ -111,7 +113,8 @@ export default function reduxApi(config, baseConfig) {
       prefetch,
       postfetch,
       validation,
-      helpers
+      helpers,
+      composeHashFrom
     } = opts;
 
     const prefix = (baseConfig && baseConfig.prefix) || "";
@@ -146,7 +149,8 @@ export default function reduxApi(config, baseConfig) {
       helpers,
       transformer,
       prefix,
-      crud
+      crud,
+      composeHashFrom: composeHashFrom || HASH_ARRAY_DEFAULT
     };
 
     memo.actions[key] = actionFn(url, key, options, ACTIONS, meta);

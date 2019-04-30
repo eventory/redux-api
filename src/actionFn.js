@@ -15,6 +15,7 @@ import {
   CRUD
 } from "./helpers";
 import { getCacheManager } from "./utils/cache";
+import composeHashFrom from "./utils/composeHashFrom";
 
 /**
  * Constructor for create action
@@ -93,7 +94,12 @@ export default function actionFn(url, name, options, ACTIONS = {}, meta = {}) {
         return Promise.resolve(data);
       }
     }
-    const response = meta.fetch(urlT, opts);
+
+    const response = meta.fetch(
+      urlT,
+      opts,
+      composeHashFrom(urlT, opts, meta.composeHashFrom)
+    );
     if (cacheManager && dispatch !== none && id) {
       response.then(data => {
         dispatch({ type: actionCache, id, data, expire: cacheManager.expire });
