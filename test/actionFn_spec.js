@@ -73,7 +73,10 @@ describe("actionFn", function() {
         data: { msg: "hello" },
         origData: { msg: "hello" },
         syncing: false,
-        request: { pathvars: undefined, params: {} }
+        request: { pathvars: undefined, params: {} },
+        prevData: {
+          test: { loading: false, syncing: false, sync: false, data: {} }
+        }
       }
     ];
     const async2 = new Promise(resolve => {
@@ -127,7 +130,10 @@ describe("actionFn", function() {
         data: { msg: "hello" },
         origData: { msg: "hello" },
         syncing: false,
-        request: { pathvars: undefined, params: {} }
+        request: { pathvars: undefined, params: {} },
+        prevData: {
+          test: { loading: false, syncing: false, sync: false, data: {} }
+        }
       }
     ];
     return new Promise(resolve => {
@@ -247,7 +253,10 @@ describe("actionFn", function() {
         syncing: false,
         data: { msg: "hello" },
         origData: { msg: "hello" },
-        request: { pathvars: undefined, params: {} }
+        request: { pathvars: undefined, params: {} },
+        prevData: {
+          test: { loading: false, syncing: false, sync: true, data: {} }
+        }
       }
     ];
     return new Promise(resolve => {
@@ -274,7 +283,10 @@ describe("actionFn", function() {
         data: { msg: "hello" },
         origData: { msg: "hello" },
         syncing: false,
-        request: { pathvars: undefined, params: {} }
+        request: { pathvars: undefined, params: {} },
+        prevData: {
+          test: { loading: false, syncing: false, sync: false, data: {} }
+        }
       },
       {
         type: BROADCAST_ACTION,
@@ -342,7 +354,10 @@ describe("actionFn", function() {
         data: { msg: "hello" },
         origData: { msg: "hello" },
         syncing: false,
-        request: { pathvars: undefined, params: {} }
+        request: { pathvars: undefined, params: {} },
+        prevData: {
+          test: { loading: false, syncing: false, sync: false, data: {} }
+        }
       }
     ];
 
@@ -431,7 +446,10 @@ describe("actionFn", function() {
         data: { msg: "hello" },
         origData: { msg: "hello" },
         syncing: false,
-        request: { pathvars: undefined, params: {} }
+        request: { pathvars: undefined, params: {} },
+        prevData: {
+          test: { loading: false, syncing: false, sync: false, data: {} }
+        }
       },
       {
         type: "One",
@@ -493,7 +511,10 @@ describe("actionFn", function() {
         data: { msg: "hello" },
         origData: { msg: "hello" },
         syncing: false,
-        request: requestOptions
+        request: requestOptions,
+        prevData: {
+          test: { loading: false, syncing: false, sync: false, data: {} }
+        }
       }
     ];
     function dispatch(msg) {
@@ -574,7 +595,10 @@ describe("actionFn", function() {
         syncing: false,
         data: { url: "/test/1", opts: { async: true } },
         origData: { url: "/test/1", opts: { async: true } },
-        request: { pathvars: { id: 1 }, params: { async: true } }
+        request: { pathvars: { id: 1 }, params: { async: true } },
+        prevData: {
+          test: { loading: false, syncing: false, sync: false, data: {} }
+        }
       }
     ];
     const wait1 = new Promise(resolve => {
@@ -655,6 +679,9 @@ describe("actionFn", function() {
         request: {
           pathvars: { id: 1 },
           params: { method: "GET" }
+        },
+        prevData: {
+          test: { loading: false, syncing: false, sync: false, data: {} }
         }
       },
       {
@@ -671,6 +698,9 @@ describe("actionFn", function() {
         request: {
           pathvars: { id: 2 },
           params: { body: "Hello", method: "POST" }
+        },
+        prevData: {
+          test: { loading: false, syncing: false, sync: false, data: {} }
         }
       },
       {
@@ -687,6 +717,9 @@ describe("actionFn", function() {
         request: {
           pathvars: { id: 3 },
           params: { body: "World", method: "PUT" }
+        },
+        prevData: {
+          test: { loading: false, syncing: false, sync: false, data: {} }
         }
       },
       {
@@ -703,6 +736,9 @@ describe("actionFn", function() {
         request: {
           pathvars: { id: 4 },
           params: { method: "DELETE" }
+        },
+        prevData: {
+          test: { loading: false, syncing: false, sync: false, data: {} }
         }
       },
       {
@@ -719,6 +755,9 @@ describe("actionFn", function() {
         request: {
           pathvars: { id: 5 },
           params: { body: "World", method: "PATCH" }
+        },
+        prevData: {
+          test: { loading: false, syncing: false, sync: false, data: {} }
         }
       }
     ];
@@ -794,7 +833,10 @@ describe("actionFn", function() {
         syncing: false,
         data: { url: "/test/overwrite", opts: null },
         origData: { url: "/test/overwrite", opts: null },
-        request: { pathvars: { id: "overwrite" }, params: undefined }
+        request: { pathvars: { id: "overwrite" }, params: undefined },
+        prevData: {
+          test: { loading: false, syncing: false, sync: false, data: {} }
+        }
       }
     ];
 
@@ -835,7 +877,10 @@ describe("actionFn", function() {
         syncing: false,
         data: { url: "/test/?id=1", opts: null },
         origData: { url: "/test/?id=1", opts: null },
-        request: { pathvars: { id: 1 }, params: null }
+        request: { pathvars: { id: 1 }, params: null },
+        prevData: {
+          test: { loading: false, syncing: false, sync: false, data: {} }
+        }
       }
     ];
 

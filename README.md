@@ -65,91 +65,94 @@ And of course you have to set up adapter to your `redux-api` instance before usi
 
 =======
 ## Examples
-[examples/isomorphic](https://github.com/lexich/redux-api/tree/master/examples/isomorphic) - React + Redux + React-Router + Redux-api with webpack and express + github API
 
-### Example
-rest.js
+### Basic usage
+api/test.js
 ```js
-import "isomorphic-fetch";
-import reduxApi, {transformers} from "redux-api";
-import adapterFetch from "redux-api/lib/adapters/fetch";
+import reduxApi, { transformers } from 'redux-api'
+import fetch from 'isomorphic-fetch'
+
+import adapterFetch from 'api/helpers/fetch'
+import { getRequestHeaders } from 'api/helpers/actions'
+
 export default reduxApi({
-  // simple endpoint description
-  entry: `/api/v1/entry/:id`,
-  // complex endpoint description
-  regions: {
-    url: `/api/v1/regions`,
-    // reimplement default `transformers.object`
-    transformer: transformers.array,
-    // base endpoint options `fetch(url, options)`
+  objects: {
+    url: '/webapi/v1/test/list',
     options: {
-      headers: {
-        "Accept": "application/json"
-      }
-    }
-  }
-}).use("fetch", adapterFetch(fetch));
+      method: 'GET',
+    },
+    transformer: transformers.collection,
+  },
+  createObject: {
+    url: '/webapi/v1/test/creator',
+    virtual: true,
+    options: {
+      method: 'POST',
+    },
+    transformer: transformers.object,
+  },
+}).use('fetch', adapterFetch(fetch)).use('options', () => ({
+  headers: getRequestHeaders(),
+}))
 ```
 
-index.jsx
+`transformers.collection`: returns response or when it's undefined { items: [], meta: { ... }}
+`transformers.object`: returns response or empty object when it's undefined
+
+### Multiple requests for same resource
+api/test.js
 ```js
-import React, {PropTypes} from "react";
-import { createStore, applyMiddleware, combineReducers } from "redux";
-import thunk from "redux-thunk";
-import { Provider, connect } from "react-redux";
-import rest from "./rest"; //our redux-rest object
+import reduxApi, { transformers, HASH } from 'redux-api'
+import fetch from 'isomorphic-fetch'
 
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
-const reducer = combineReducers(rest.reducers);
-const store = createStoreWithMiddleware(reducer);
+import adapterFetch from 'api/helpers/fetch'
+import { getRequestHeaders } from 'api/helpers/actions'
 
-function select(state) {
-  return { entry: state.entry, regions: state.regions };
-}
-
-class Application {
-  static propTypes = {
-    entry: PropTypes.shape({
-      loading: PropTypes.bool.isRequired,
-      data: PropTypes.shape({
-        text: PropTypes.string
-      }).isRequired
-    }).isRequired,
-    regions: PropTypes.shape({
-      loading: PropTypes.bool.isRequired,
-      data: PropTypes.array.isRequired
-    }).isRequired,
-    dispatch: PropTypes.func.isRequired
-  };
-  componentDidMount() {
-    const {dispatch} = this.props;
-    // fetch `/api/v1/regions
-    dispatch(rest.actions.regions.sync());
-    //specify id for GET: /api/v1/entry/1
-    dispatch(rest.actions.entry({id: 1}));
-  }
-  render() {
-    const {entry, regions} = this.props;
-    const Regions = regions.data.map((item)=> <p>{ item.name }</p>)
-    return (
-      <div>
-        Loading regions: { regions.loading }
-        <Regions/>
-        Loading entry: {entry.loading}
-        <div>{{ entry.data.text }}</div>
-      </div>
-    );
-  }
-}
-
-const SmartComponent = connect(select)(Application);
-
-React.render(
-  <Provider store={store}>
-    <SmartComponent />
-  </Provider>,
-  document.getElementById("content")
-);
+export default reduxApi({
+  test: {
+    url: 'http://localhost:3000/',
+    options: {
+      method: 'POST',
+    },
+    transformer: transformers.object,
+    composeHashFrom: [HASH.URL],
+  },
+}).use('fetch', adapterFetch(fetch)).use('options', () => ({
+  headers: getRequestHeaders(),
+}))
 ```
 
-### [Releases Changelog](https://github.com/lexich/redux-api/releases)
+`composeHashFrom` is an object with { URL, HEADERS, BODY } parameters. The purpose of that object is to generate hash which leads to recognize
+newest request for same/similiar resource.
+
+`GET` /api/test `composeHashFrom` - [URL] could be enough
+
+`POST` /api/test/create `composeHashFrom` - [URL] could not be enough 'cause for example body in POST is changing every request. In that case it should be [HASH.BODY, HASH.URL]
+
+Test.js
+```js
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+
+import testApi from 'api/test'
+
+const tickets = ({
+  test,
+  fetchTest,
+}) => {
+  useEffect(() => {
+    for (let i = 0; i <= 20; i++) fetchTest({}, { x: i })
+  }, [])
+  return <span>{test.x}</span>
+}
+
+const mapStateToProps = state => ({
+  test: state.test,
+})
+
+const mapDispatchToProps = ({
+  fetchTest: testApi.actions.test.force,
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(tickets)
+```

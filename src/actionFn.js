@@ -16,6 +16,7 @@ import {
 } from "./helpers";
 import { getCacheManager } from "./utils/cache";
 import composeHashFrom from "./utils/composeHashFrom";
+import urlSlashTransform from "./utils/urlSlashTransform";
 
 /**
  * Constructor for create action
@@ -96,7 +97,7 @@ export default function actionFn(url, name, options, ACTIONS = {}, meta = {}) {
     }
 
     const response = meta.fetch(
-      urlT,
+      meta.crud ? urlSlashTransform(urlT) : urlT,
       opts,
       composeHashFrom(urlT, opts, meta.composeHashFrom)
     );
@@ -235,7 +236,8 @@ export default function actionFn(url, name, options, ACTIONS = {}, meta = {}) {
                 origData: d,
                 type: actionSuccess,
                 syncing: false,
-                request: requestOptions
+                request: requestOptions,
+                prevData
               });
               if (meta.broadcast) {
                 meta.broadcast.forEach(type => {

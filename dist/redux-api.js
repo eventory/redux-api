@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 29);
+/******/ 	return __webpack_require__(__webpack_require__.s = 30);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1287,6 +1287,10 @@ var _composeHashFrom = __webpack_require__(2);
 
 var _composeHashFrom2 = _interopRequireDefault(_composeHashFrom);
 
+var _urlSlashTransform = __webpack_require__(29);
+
+var _urlSlashTransform2 = _interopRequireDefault(_urlSlashTransform);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -1353,7 +1357,7 @@ function actionFn(url, name, options) {
       }
     }
 
-    var response = meta.fetch(urlT, opts, (0, _composeHashFrom2.default)(urlT, opts, meta.composeHashFrom));
+    var response = meta.fetch(meta.crud ? (0, _urlSlashTransform2.default)(urlT) : urlT, opts, (0, _composeHashFrom2.default)(urlT, opts, meta.composeHashFrom));
     if (cacheManager && dispatch !== _helpers.none && id) {
       response.then(function (data) {
         dispatch({ type: actionCache, id: id, data: data, expire: cacheManager.expire });
@@ -1486,7 +1490,8 @@ function actionFn(url, name, options) {
               origData: d,
               type: actionSuccess,
               syncing: false,
-              request: requestOptions
+              request: requestOptions,
+              prevData: prevData
             });
             if (meta.broadcast) {
               meta.broadcast.forEach(function (type) {
@@ -3365,6 +3370,25 @@ module.exports = exports["default"];
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function () {
+  var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
+
+  return url.endsWith("/") ? url.slice(0, -1) : url;
+};
+
+module.exports = exports["default"];
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 /* eslint no-void: 0 */
 
 Object.defineProperty(exports, "__esModule", {
@@ -3581,6 +3605,7 @@ function reduxApi(config, baseConfig) {
 reduxApi.transformers = _transformers2.default;
 reduxApi.async = _async2.default;
 reduxApi.getPureResponse = _getPureResponse2.default;
+reduxApi.HASH = { URL: _composeHashFrom.URL, BODY: _composeHashFrom.BODY, HEADERS: _composeHashFrom.HEADERS };
 module.exports = exports["default"];
 
 /***/ })

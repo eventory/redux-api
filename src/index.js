@@ -8,7 +8,12 @@ import transformers, { responseTransform } from "./transformers";
 import async from "./async";
 import cacheManager from "./utils/cache";
 import getPureResponse from "./utils/getPureResponse";
-import { ARRAY_DEFAULT as HASH_ARRAY_DEFAULT } from "./utils/composeHashFrom";
+import {
+  ARRAY_DEFAULT as HASH_ARRAY_DEFAULT,
+  URL,
+  BODY,
+  HEADERS
+} from "./utils/composeHashFrom";
 
 // export { transformers, async };
 
@@ -197,3 +202,4 @@ export default function reduxApi(config, baseConfig) {
 reduxApi.transformers = transformers;
 reduxApi.async = async;
 reduxApi.getPureResponse = getPureResponse;
+reduxApi.HASH = { URL, BODY, HEADERS };

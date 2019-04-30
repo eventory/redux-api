@@ -73,6 +73,8 @@
     "init",
     "size mode",
     "use",
-    "sending events"
+    "sending events",
+    "meta",
+    "returns"
   ]
 }

@@ -131,7 +131,8 @@ describe("index", function() {
         data: { msg: "hello" },
         origData: { msg: "hello" },
         syncing: false,
-        request: { pathvars: undefined, params: {} }
+        request: { pathvars: undefined, params: {} },
+        prevData: { loading: false, data: {} }
       }
     ];
     return new Promise(resolve => {
@@ -182,7 +183,8 @@ describe("index", function() {
         data: { msg: "hello" },
         origData: { msg: "hello" },
         syncing: false,
-        request: { pathvars: { id: 1 }, params: {} }
+        request: { pathvars: { id: 1 }, params: {} },
+        prevData: { loading: false, data: {} }
       }
     ];
     return new Promise(resolve => {
