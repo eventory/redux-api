@@ -75,7 +75,7 @@ export default function reducerFn(initialState, actions = {}, reducer) {
           ...state,
           api: {
             ...state.api,
-            error: null,
+            error: null
           }
         });
       case actionAbort:

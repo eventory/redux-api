@@ -302,8 +302,8 @@ export default function actionFn(url, name, options, ACTIONS = {}, meta = {}) {
   };
 
   fn.resetError = () => ({
-    type: actionResetError,
-  })
+    type: actionResetError
+  });
 
   /*
     Abort request
