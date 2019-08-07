@@ -33,6 +33,7 @@ export default function actionFn(url, name, options, ACTIONS = {}, meta = {}) {
     actionSuccess,
     actionFail,
     actionReset,
+    actionResetError,
     actionCache,
     actionAbort
   } = ACTIONS;
@@ -299,6 +300,10 @@ export default function actionFn(url, name, options, ACTIONS = {}, meta = {}) {
       ? { type: actionReset, mutation }
       : { type: actionReset };
   };
+
+  fn.resetError = () => ({
+    type: actionResetError,
+  })
 
   /*
     Abort request

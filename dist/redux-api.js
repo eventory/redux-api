@@ -1309,6 +1309,7 @@ function actionFn(url, name, options) {
       actionSuccess = ACTIONS.actionSuccess,
       actionFail = ACTIONS.actionFail,
       actionReset = ACTIONS.actionReset,
+      actionResetError = ACTIONS.actionResetError,
       actionCache = ACTIONS.actionCache,
       actionAbort = ACTIONS.actionAbort;
 
@@ -1549,6 +1550,12 @@ function actionFn(url, name, options) {
     return mutation === "sync" ? { type: actionReset, mutation: mutation } : { type: actionReset };
   };
 
+  fn.resetError = function () {
+    return {
+      type: actionResetError
+    };
+  };
+
   /*
     Abort request
    */
@@ -1747,6 +1754,7 @@ function reducerFn(initialState) {
       actionSuccess = actions.actionSuccess,
       actionFail = actions.actionFail,
       actionReset = actions.actionReset,
+      actionResetError = actions.actionResetError,
       actionCache = actions.actionCache,
       actionAbort = actions.actionAbort;
 
@@ -1792,6 +1800,12 @@ function reducerFn(initialState) {
             sync: false
           })
         })) : _extends({}, initialState);
+      case actionResetError:
+        return (0, _transformers.responseTransform)(_extends({}, state, {
+          api: _extends({}, state.api, {
+            error: null
+          })
+        }));
       case actionAbort:
         return (0, _transformers.responseTransform)(_extends({}, state, {
           api: _extends({}, state.api, {
@@ -3540,6 +3554,7 @@ function reduxApi(config, baseConfig) {
       actionSuccess: PREFIX + "@" + prefix + reducerName + "_success",
       actionFail: PREFIX + "@" + prefix + reducerName + "_fail",
       actionReset: PREFIX + "@" + prefix + reducerName + "_delete",
+      actionResetError: PREFIX + "@" + prefix + reducerName + "_delete_error",
       actionCache: PREFIX + "@" + prefix + reducerName + "_cache",
       actionAbort: PREFIX + "@" + prefix + reducerName + "_abort"
     };

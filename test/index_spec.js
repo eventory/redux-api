@@ -116,6 +116,7 @@ describe("index", function() {
       "actionSuccess",
       "actionFail",
       "actionReset",
+      "actionResetError",
       "actionCache",
       "actionAbort"
     );

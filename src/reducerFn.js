@@ -17,6 +17,7 @@ export default function reducerFn(initialState, actions = {}, reducer) {
     actionSuccess,
     actionFail,
     actionReset,
+    actionResetError,
     actionCache,
     actionAbort
   } = actions;
@@ -69,6 +70,14 @@ export default function reducerFn(initialState, actions = {}, reducer) {
               }
             })
           : { ...initialState };
+      case actionResetError:
+        return responseTransform({
+          ...state,
+          api: {
+            ...state.api,
+            error: null,
+          }
+        });
       case actionAbort:
         return responseTransform({
           ...state,
