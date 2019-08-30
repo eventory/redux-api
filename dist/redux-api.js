@@ -1803,7 +1803,8 @@ function reducerFn(initialState) {
       case actionResetError:
         return (0, _transformers.responseTransform)(_extends({}, state, {
           api: _extends({}, state.api, {
-            error: null
+            error: null,
+            sync: true
           })
         }));
       case actionAbort:
