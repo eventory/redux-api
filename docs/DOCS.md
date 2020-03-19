@@ -96,6 +96,21 @@ import reduxApi, {transformers} from "redux-api";
 ```
   This would re-encode the url to `/api/v1/entry?a[]=5;a[]=6`.
 
+  There is alsob `qsModifier` which can modify params added to the url:
+```js
+{
+  entry: {
+    url: "/api/v1/entry?a=6",
+    urlOptions: {
+      qsModifier(url, params) {
+        params.b = "9"
+      }
+    }
+  }
+}
+```
+  This would re-encode the url to `/api/v1/entry?a=6&b=9`.
+
 #### transformer
 - **Description**: function for rest response transformation
 - **Type**: Function

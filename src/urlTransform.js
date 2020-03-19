@@ -13,7 +13,7 @@ const rxClean = /(\(:[^\)]+\)|:[^\/]+\/?)/g;
  * @param  {String} url     url template
  * @param  {Object} params  params for url template
  * @param  {Object} options transformation options, accepts +delimiter+, +arrayFormat+,
- *                          +qsStringifyOptions+ and +qsParseOptions+
+ *                          +qsStringifyOptions+, +qsModifier+, +qsParseOptions+
  * @return {String}         result url
  */
 export default function urlTransform(url, params, options) {
@@ -21,6 +21,8 @@ export default function urlTransform(url, params, options) {
     return "";
   }
   params || (params = {});
+  options || (options = {});
+  if (options.qsModifier) options.qsModifier(url, params, options);
   const usedKeys = {};
   const urlWithParams = Object.keys(params).reduce((url, key) => {
     const value = params[key];
@@ -41,7 +43,6 @@ export default function urlTransform(url, params, options) {
   const usedKeysArray = Object.keys(usedKeys);
   if (usedKeysArray.length !== Object.keys(params).length) {
     const urlObject = cleanURL.split("?");
-    options || (options = {});
     const { arrayFormat, delimiter } = options;
     const qsParseOptions = {
       arrayFormat,
