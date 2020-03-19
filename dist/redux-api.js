@@ -3266,7 +3266,7 @@ var rxClean = /(\(:[^\)]+\)|:[^\/]+\/?)/g;
  * @param  {String} url     url template
  * @param  {Object} params  params for url template
  * @param  {Object} options transformation options, accepts +delimiter+, +arrayFormat+,
- *                          +qsStringifyOptions+ and +qsParseOptions+
+ *                          +qsStringifyOptions+, +qsModifier+, +qsParseOptions+
  * @return {String}         result url
  */
 function urlTransform(url, params, options) {
@@ -3274,6 +3274,8 @@ function urlTransform(url, params, options) {
     return "";
   }
   params || (params = {});
+  options || (options = {});
+  if (options.qsModifier) options.qsModifier(url, params, options);
   var usedKeys = {};
   var urlWithParams = Object.keys(params).reduce(function (url, key) {
     var value = params[key];
@@ -3297,7 +3299,6 @@ function urlTransform(url, params, options) {
   var usedKeysArray = Object.keys(usedKeys);
   if (usedKeysArray.length !== Object.keys(params).length) {
     var urlObject = cleanURL.split("?");
-    options || (options = {});
     var _options = options,
         arrayFormat = _options.arrayFormat,
         delimiter = _options.delimiter;

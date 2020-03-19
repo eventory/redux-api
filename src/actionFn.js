@@ -382,10 +382,11 @@ export default function actionFn(url, name, options, ACTIONS = {}, meta = {}) {
             if (error) {
               callback(error);
             } else {
-              fastApply(sync ? fn.sync : fn, null, newArgs.concat(callback))(
-                dispatch,
-                getState
-              );
+              fastApply(
+                sync ? fn.sync : fn,
+                null,
+                newArgs.concat(callback)
+              )(dispatch, getState);
             }
           });
         } else {

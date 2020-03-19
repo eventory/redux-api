@@ -103,13 +103,11 @@ describe("urlTransform", function() {
 
   it("accepts qsModifier", function() {
     const urlOptions = {
-      qsModifier(url, params) { params.test = "test" }
+      qsModifier(url, params) {
+        params.test = "test";
+      }
     };
-    expect(urlTransform("/t?id=1", {}, urlOptions)).to.eql(
-      "/t?id=1&test=test"
-    );
-    expect(urlTransform("/t", {}, urlOptions)).to.eql(
-      "/t?test=test"
-    );
+    expect(urlTransform("/t?id=1", {}, urlOptions)).to.eql("/t?id=1&test=test");
+    expect(urlTransform("/t", {}, urlOptions)).to.eql("/t?test=test");
   });
 });

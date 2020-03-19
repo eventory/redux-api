@@ -58,7 +58,10 @@ describe("actionFn", function() {
       const initialState = getState();
       initialState.test.sync = true;
 
-      api.sync(resolve)(function() {}, () => initialState);
+      api.sync(resolve)(
+        function() {},
+        () => initialState
+      );
       expect(executeCounter).to.be.eql(0);
     });
 
@@ -534,7 +537,10 @@ describe("actionFn", function() {
     }).then(
       () => {
         expect(expectedEvent).to.have.length(0);
-        expect(checkPrefetch).to.eql([["one", expOpts], ["two", expOpts]]);
+        expect(checkPrefetch).to.eql([
+          ["one", expOpts],
+          ["two", expOpts]
+        ]);
       },
       err => expect(null).to.eql(err)
     );
@@ -771,14 +777,22 @@ describe("actionFn", function() {
     });
 
     const postQuery = new Promise(resolve => {
-      api.post({ id: 2 }, { body: "Hello" }, resolve)(function(msg) {
+      api.post(
+        { id: 2 },
+        { body: "Hello" },
+        resolve
+      )(function(msg) {
         expect(expectedEvent).to.have.length.above(0);
         const exp = expectedEvent.shift();
         expect(msg).to.eql(exp);
       }, getState);
     });
     const putQuery = new Promise(resolve => {
-      api.put({ id: 3 }, { body: "World" }, resolve)(function(msg) {
+      api.put(
+        { id: 3 },
+        { body: "World" },
+        resolve
+      )(function(msg) {
         expect(expectedEvent).to.have.length.above(0);
         const exp = expectedEvent.shift();
         expect(msg).to.eql(exp);
@@ -792,7 +806,11 @@ describe("actionFn", function() {
       }, getState);
     });
     const patchQuery = new Promise(resolve => {
-      api.patch({ id: 5 }, { body: "World" }, resolve)(function(msg) {
+      api.patch(
+        { id: 5 },
+        { body: "World" },
+        resolve
+      )(function(msg) {
         expect(expectedEvent).to.have.length.above(0);
         const exp = expectedEvent.shift();
         expect(msg).to.eql(exp);

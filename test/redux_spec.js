@@ -613,9 +613,10 @@ describe("redux", () => {
       };
     }
 
-    const createStoreWithMiddleware = applyMiddleware(midleware, thunk)(
-      createStore
-    );
+    const createStoreWithMiddleware = applyMiddleware(
+      midleware,
+      thunk
+    )(createStore);
     const store = createStoreWithMiddleware(reducer);
 
     return store
