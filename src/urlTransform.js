@@ -21,6 +21,7 @@ export default function urlTransform(url, params, options) {
     return "";
   }
   params || (params = {});
+  params = {...params}
   options || (options = {});
   if (options.qsModifier) options.qsModifier(url, params, options);
   const usedKeys = {};
