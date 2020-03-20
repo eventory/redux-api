@@ -3274,6 +3274,7 @@ function urlTransform(url, params, options) {
     return "";
   }
   params || (params = {});
+  params = _extends({}, params);
   options || (options = {});
   if (options.qsModifier) options.qsModifier(url, params, options);
   var usedKeys = {};
