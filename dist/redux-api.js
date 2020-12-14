@@ -193,7 +193,7 @@ var transformEmpty = function transformEmpty(response) {
 
 var transformPerforming = function transformPerforming(response) {
   if (response.api.error) return false;
-  return response.api.loading || response.api.syncing || !response.api.sync;
+  return response.api.request === null || response.api.loading || response.api.syncing || !response.api.sync;
 };
 
 var responseTransform = exports.responseTransform = function responseTransform(response) {
@@ -205,7 +205,7 @@ var responseTransform = exports.responseTransform = function responseTransform(r
 };
 
 /**
- * Default responce transformens
+ * Default response transformers
  */
 exports.default = {
   array: function array(data) {
