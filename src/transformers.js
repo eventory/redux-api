@@ -7,7 +7,12 @@ const transformEmpty = response => {
 
 const transformPerforming = response => {
   if (response.api.error) return false;
-  return response.api.request === null || response.api.loading || response.api.syncing || !response.api.sync;
+  return (
+    response.api.request === null ||
+    response.api.loading ||
+    response.api.syncing ||
+    !response.api.sync
+  );
 };
 
 export const responseTransform = response => {
