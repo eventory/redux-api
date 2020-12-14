@@ -107,7 +107,7 @@ describe("transformers", () => {
           sync: false,
           syncing: true,
           loading: false,
-          performing: false,
+          performing: true,
           empty: true,
           error: "?"
         }

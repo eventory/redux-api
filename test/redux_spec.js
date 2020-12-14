@@ -682,7 +682,7 @@ describe("redux", () => {
                 sync: false,
                 syncing: false,
                 loading: false,
-                performing: false,
+                performing: true,
                 request: {
                   params: undefined,
                   pathvars: undefined
@@ -724,7 +724,7 @@ describe("redux", () => {
               sync: false,
               syncing: false,
               loading: false,
-              performing: false,
+              performing: true,
               request: {
                 params: undefined,
                 pathvars: undefined

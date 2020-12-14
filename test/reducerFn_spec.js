@@ -57,7 +57,7 @@ describe("reducerFn", function() {
         loading: false,
         error: "Error",
         syncing: false,
-        performing: false
+        performing: true
       },
       msg: "Hello"
     }).to.eql(res3);
@@ -123,7 +123,7 @@ describe("reducerFn", function() {
         loading: false,
         error: "Error",
         syncing: false,
-        performing: false,
+        performing: true,
         request: {
           pathvars: { id: 42 }
         }
@@ -209,7 +209,7 @@ describe("reducerFn", function() {
         loading: false,
         error: "Error",
         syncing: false,
-        performing: false,
+        performing: true,
         request: {
           pathvars: { other: "var" },
           params: {

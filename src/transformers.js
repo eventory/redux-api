@@ -6,13 +6,9 @@ const transformEmpty = response => {
 };
 
 const transformPerforming = response => {
-  if (response.api.error) return false;
-  return (
-    response.api.request === null ||
-    response.api.loading ||
-    response.api.syncing ||
-    !response.api.sync
-  );
+  if (response.api.error && response.api.error.constructor === Object)
+    return false;
+  return response.api.loading || response.api.syncing || !response.api.sync;
 };
 
 export const responseTransform = response => {
