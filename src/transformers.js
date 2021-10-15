@@ -1,5 +1,7 @@
 "use strict";
 
+import { forEach } from "lodash";
+
 const transformEmpty = response => {
   const keys = Object.keys(response);
   return keys.length < 2 || !!(response.items && response.items.length === 0);
@@ -43,5 +45,15 @@ export default {
   },
   object(data) {
     return data || {};
+  },
+  infiniteCollection(prev, next) {
+    const prevCollection = collection(prev)
+    const nextCollection = collection(next)
+    const mapCollection = new Map()
+
+    prevCollection.items.forEach(item => map.set(item.id, item))
+    nextCollection.items.forEach(item => map.set(item.id, item))
+
+    return [...mapCollection.values()]
   }
 };
