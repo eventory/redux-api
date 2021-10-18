@@ -1,6 +1,6 @@
 "use strict";
 
-import { forEach } from "lodash";
+import { uniqBy } from 'lodash/uniqBy';
 
 const transformEmpty = response => {
   const keys = Object.keys(response);
@@ -51,9 +51,8 @@ export default {
     const nextCollection = collection(next)
     const mapCollection = new Map()
 
-    prevCollection.items.forEach(item => map.set(item.id, item))
-    nextCollection.items.forEach(item => map.set(item.id, item))
+    const newCollection = uniqBy([...prevCollection.items, ...nextCollection.items], 'id')
 
-    return [...mapCollection.values()]
+    return nextCollection
   }
 };
