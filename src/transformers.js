@@ -51,8 +51,6 @@ export default {
     const nextCollection = collection(next)
     const mapCollection = new Map()
 
-    const newCollection = uniqBy([...prevCollection.items, ...nextCollection.items], 'id')
-
-    return nextCollection
+    return uniqBy([...prevCollection.items, ...nextCollection.items], 'id')
   }
 };
