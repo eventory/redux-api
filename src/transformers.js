@@ -1,6 +1,5 @@
 "use strict";
 
-/* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}], no-void: 0 */
 import uniqBy from "lodash/unionBy";
 
 const transformEmpty = response => {

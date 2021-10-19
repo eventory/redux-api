@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "fast-apply": "0.0.3",
+    "lodash": "4.17.4",
     "qs": "5.2.0"
   },
   "devDependencies": {
