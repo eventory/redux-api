@@ -23,19 +23,20 @@ export const responseTransform = response => {
 };
 
 const transformCollection = data => {
-  if (!data) return {
-    items: [],
-    meta: {
-      next: null,
-      page: 1,
-      pages: 0,
-      per_page: 25,
-      previous: null,
-      total: 0
-    }
-  };
+  if (!data)
+    return {
+      items: [],
+      meta: {
+        next: null,
+        page: 1,
+        pages: 0,
+        per_page: 25,
+        previous: null,
+        total: 0
+      }
+    };
   return data;
-}
+};
 
 /**
  * Default response transformers
@@ -54,7 +55,10 @@ export default {
     const prevCollection = transformCollection(prev);
     const nextCollection = transformCollection(next);
 
-    nextCollection.items = uniqBy([...prevCollection.items, ...nextCollection.items], "id")
-    return nextCollection
+    nextCollection.items = uniqBy(
+      [...prevCollection.items, ...nextCollection.items],
+      "id"
+    );
+    return nextCollection;
   }
 };
