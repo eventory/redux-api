@@ -1,6 +1,7 @@
 "use strict";
 
-import { uniqBy } from 'lodash/uniqBy';
+/* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}], no-void: 0 */
+import uniqBy from "lodash/unionBy";
 
 const transformEmpty = response => {
   const keys = Object.keys(response);
@@ -21,6 +22,21 @@ export const responseTransform = response => {
   return response;
 };
 
+const transformCollection = data => {
+  if (!data) return {
+    items: [],
+    meta: {
+      next: null,
+      page: 1,
+      pages: 0,
+      per_page: 25,
+      previous: null,
+      total: 0
+    }
+  };
+  return data;
+}
+
 /**
  * Default response transformers
  */
@@ -29,28 +45,16 @@ export default {
     return !data ? [] : Array.isArray(data) ? data : [data];
   },
   collection(data) {
-    if (!data)
-      return {
-        items: [],
-        meta: {
-          next: null,
-          page: 1,
-          pages: 0,
-          per_page: 25,
-          previous: null,
-          total: 0
-        }
-      };
-    return data;
+    return transformCollection(data);
   },
   object(data) {
     return data || {};
   },
-  infiniteCollection(prev, next) {
-    const prevCollection = collection(prev)
-    const nextCollection = collection(next)
-    const mapCollection = new Map()
+  infiniteCollection(next, prev) {
+    const prevCollection = transformCollection(prev);
+    const nextCollection = transformCollection(next);
 
-    return uniqBy([...prevCollection.items, ...nextCollection.items], 'id')
+    nextCollection.items = uniqBy([...prevCollection.items, ...nextCollection.items], "id")
+    return nextCollection
   }
 };
