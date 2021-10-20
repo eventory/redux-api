@@ -22,9 +22,9 @@ const meta = {
 };
 
 const items = [
-  { id: 1, name: "Ala" },
-  { id: 2, name: "Ola" },
-  { id: 3, name: "Tola" }
+  { id: 1, name: "Brian" },
+  { id: 2, name: "Jessica" },
+  { id: 3, name: "Andrew" }
 ];
 
 describe("index", function() {
