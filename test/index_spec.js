@@ -12,6 +12,21 @@ function getState() {
   return { test: { loading: false, data: {} } };
 }
 
+const meta = {
+  next: null,
+  page: 1,
+  pages: 0,
+  per_page: 25,
+  previous: null,
+  total: 0
+};
+
+const items = [
+  { id: 1, name: "Brian" },
+  { id: 2, name: "Jessica" },
+  { id: 3, name: "Andrew" }
+];
+
 describe("index", function() {
   it("check transformers", function() {
     expect(transformers.array()).to.eql([]);
@@ -24,6 +39,19 @@ describe("index", function() {
     expect(transformers.object("test")).to.eql("test");
     expect(transformers.object(1)).to.eql(1);
     expect(transformers.object(true)).to.eql(true);
+
+    expect(transformers.collection(null)).to.eql({ items: [], meta });
+    expect(transformers.collection({ items: [items[1]], meta })).to.eql({
+      items: [items[1]],
+      meta
+    });
+
+    expect(
+      transformers.infiniteCollection(
+        { items: [items[1], items[2]], meta },
+        { items: [items[3], items[2]], meta }
+      )
+    ).to.eql({ items: [items[3], items[2], items[1]], meta });
   });
   it("check null params", function() {
     expect(isFunction(reduxApi)).to.be.true;
