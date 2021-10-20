@@ -19,13 +19,13 @@ const meta = {
   per_page: 25,
   previous: null,
   total: 0
-}
+};
 
 const items = [
   { id: 1, name: "Ala" },
   { id: 2, name: "Ola" },
-  { id: 3, name: "Tola" },
-]
+  { id: 3, name: "Tola" }
+];
 
 describe("index", function() {
   it("check transformers", function() {
@@ -41,14 +41,17 @@ describe("index", function() {
     expect(transformers.object(true)).to.eql(true);
 
     expect(transformers.collection(null)).to.eql({ items: [], meta });
-    expect(transformers.collection({ items: [items[1]], meta })).to.eql({ items: [items[1]], meta });
+    expect(transformers.collection({ items: [items[1]], meta })).to.eql({
+      items: [items[1]],
+      meta
+    });
 
-    expect(transformers.infiniteCollection(
-      { items: [items[1], items[2]], meta },
-      { items: [items[3], items[2]], meta },
-      )).to.eql(
-        { items: [items[3], items[2], items[1]], meta }
-      );
+    expect(
+      transformers.infiniteCollection(
+        { items: [items[1], items[2]], meta },
+        { items: [items[3], items[2]], meta }
+      )
+    ).to.eql({ items: [items[3], items[2], items[1]], meta });
   });
   it("check null params", function() {
     expect(isFunction(reduxApi)).to.be.true;
