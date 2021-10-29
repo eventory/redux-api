@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.12.1"></a>
+## [0.12.1](https://github.com/lexich/redux-api/compare/v0.11.2...v0.12.1) (2021-10-29)
+
+
+
 <a name="0.11.2"></a>
 ## [0.11.2](https://github.com/lexich/redux-api/compare/v0.11.1...v0.11.2) (2017-12-29)
 

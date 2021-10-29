@@ -1,6 +1,6 @@
 {
   "name": "redux-api",
-  "version": "0.12.0",
+  "version": "0.12.1",
   "author": {
     "name": "Efremov Alex",
     "email": "lexich121@gmail.com",
@@ -22,6 +22,7 @@
     "prettier": "prettier --write \"{src,test,examples/isomorphic/app}/**/*.{js,jsx}\"",
     "browser-dev": "node_modules/.bin/webpack",
     "browser-min": "cross-env NODE_ENV=production node_modules/.bin/webpack",
+    "tag": "node_modules/.bin/standard-version --no-verify && git push --follow-tags origin master",
     "release": "node_modules/.bin/standard-version --no-verify && git push --follow-tags origin master; npm publish",
     "precommit": "npm run prettier && npm test",
     "prepush": "npm test && npm run build"
